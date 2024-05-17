@@ -9,8 +9,8 @@ exports.sendEmail = async (subject, text, html) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'fawadk2543@gmail.com', // Your Outlook email address
-            pass: 'urwy igqt sddh kppb' // Your Outlook password
+            user: process.env.EMAIL_SEND, // Your Outlook email address
+            pass: process.env.EMAIL_SEND_PASSWORD // Your Outlook password
         },
     })
     // Define email options
