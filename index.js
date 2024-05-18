@@ -46,7 +46,7 @@ const startServer = () => {
     })
 
 }
-
+app.use('/uploads', express.static('uploads'));
 // routes
 app.use('/', routes);
 
