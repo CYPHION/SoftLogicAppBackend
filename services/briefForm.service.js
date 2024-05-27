@@ -1,5 +1,11 @@
 const BriefForm = require('../model/briefForm.model');
 const { sendEmail } = require('../utils/emailService');
+const config = require('../config/config')
+
+exports.getForms = async () => {
+    return await BriefForm.findAll()
+}
+
 
 
 exports.createForm = async (data) => {
@@ -14,11 +20,11 @@ exports.createForm = async (data) => {
         <!DOCTYPE html>
         <html lang="en">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Response Received from User</title>
-            <style>
-                body {
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Response Received from User</title>
+        <style>
+        body {
                     font-family: Arial, sans-serif;
                     line-height: 1.6;
                     margin: 0;
@@ -52,9 +58,9 @@ exports.createForm = async (data) => {
                 a:hover {
                     text-decoration: underline;
                 }
-            </style>
-        </head>
-        <body>
+                </style>
+                </head>
+                <body>
             <h1 style="color: #007bff;">Response Received from ${createdForm.dataValues.username} (${createdForm.dataValues.type} Form)</h1>
             <p>Hello Softlogic Team,</p>
             
@@ -64,18 +70,18 @@ exports.createForm = async (data) => {
             <p><strong>User's Email:</strong> ${createdForm.dataValues.email}</p>
             
             <p>Here is a link to the first resource:</p>
-            <a href="${process.env.urlEmail}/uploads/${createdForm.dataValues.formImage}" class="pdf-link">User Form</a>
-        
+            <a href="${config.urlEmail}/uploads/${createdForm.dataValues.formImage}" class="pdf-link">User Form</a>
+            
             ${createdForm.dataValues.userImage ? `
-                <p>Since the user has provided an image, here is a link to the second resource:</p>
-                <a href="${process.env.urlEmail}/uploads/${createdForm.dataValues.userImage}" class="userImg-link">User Provided Image</a>
+            <p>Since the user has provided an image, here is a link to the second resource:</p>
+            <a href="${config.urlEmail}/uploads/${createdForm.dataValues.userImage}" class="userImg-link">User Provided Image</a>
             ` : ''}
-        
+            
             <p>Thank you,</p>
             <p>Softlogic Team</p>
-        </body>
-        </html>
-        `;
+            </body>
+            </html>
+            `;
 
 
         // "process.envurlEmail/createdForm.dataValues.formImage"
@@ -87,4 +93,10 @@ exports.createForm = async (data) => {
     } catch (error) {
         console.error('Error creating form:', error);
     }
+
 };
+
+exports.deleteForms = async (id) => {
+    const form = await BriefForm.findByPk(id)
+    return await form.destroy()
+}

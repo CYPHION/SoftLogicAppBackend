@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.use('/form', formRoute)
 router.use('/newsletter', newsLetterRoute)
-router.use('/brief-from', briefFromRoute)
+router.use('/brief-form', briefFromRoute)
 router.use('/uploads', uploadsRoute)
 
 

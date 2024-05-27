@@ -1,0 +1,19 @@
+config 
+
+
+module.exports = {
+    dbName: 'softlogi_main',
+    dbUser: 'softlogi_root',
+    dbPassword: '?c87E#!YnKQb',
+    dbHost: '95.217.204.70',
+    env: process.env.NODE_ENV,
+    dialect: 'mysql',
+    port: process.env.PORT || 5000,
+    emailHost: "smtp-mail.outlook.com",
+    emailPort: 587,
+    emailUsername: 'info@softlogicapp.com',
+    emailPassword: 'Octa1993cyphion',
+    EMAIL_SEND : 'fawadk2543@gmail.com',
+    EMAIL_SEND_PASSWORD : 'urwy igqt sddh kppb',
+    urlEmail : 'https://api.softlogicapp.com'
+};

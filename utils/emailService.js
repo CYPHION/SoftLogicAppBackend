@@ -1,6 +1,7 @@
 // utils/emailService.js
 
 const nodemailer = require('nodemailer');
+const config = require('../config/config')
 
 // Function to send emails
 exports.sendEmail = async (subject, text, html) => {
@@ -9,8 +10,8 @@ exports.sendEmail = async (subject, text, html) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL_SEND, // Your Outlook email address
-            pass: process.env.EMAIL_SEND_PASSWORD // Your Outlook password
+            user: config.EMAIL_SEND, // Your Outlook email address
+            pass: config.EMAIL_SEND_PASSWORD // Your Outlook password
         },
     })
     // Define email options
