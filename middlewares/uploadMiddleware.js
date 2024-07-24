@@ -1,33 +1,22 @@
-const multer = require('multer');
-const path = require('path');
+// Import multer module for file handling
+const multer = require("multer");
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/'),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
-});
-
-const fileFilter = (req, file, cb) => {
-    if (!file.originalname.match(/\.(svg|webp|jpg|jpeg|png|pdf|doc|txt)$/)) {
-        req.fileValidationError = "Only image files are allowed!";
-        return cb(null, false, new Error("Only image files are allowed!"));
+// Disk storage configuration for saving files directly to server storage
+var storage = multer.diskStorage({
+    // Function to specify the destination where the file should be stored
+    destination: function (req, file, cb) {
+        // Set the destination to 'uploads' folder
+        cb(null, 'uploads');
+    },
+    // Function to specify the naming convention of the uploaded files
+    filename: function (req, file, cb) {
+        // Create the file name with a timestamp and preserve the original file extension
+        cb(null, Date.now() + '.' + file.originalname.split('.')[1]);
     }
-    cb(null, true);
-};
-
-const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter,
-    limits: { fileSize: 100000000 }
 });
 
-exports.uploadSingleImage = (req, res, next) => {
-    const uploader = upload.single('file');
-    uploader(req, res, function (error) {
-        if (error instanceof multer.MulterError) {
-            req.fileUploadError = error;
-        } else if (error) {
-            req.fileUploadError = error;
-        }
-        next();
-    });
-};
+// Set up multer with disk storage and a file size limit
+exports.upload = multer({
+    storage: storage,
+    limits: 100000000
+});

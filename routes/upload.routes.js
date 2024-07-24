@@ -1,9 +1,11 @@
 const express = require('express');
-const { uploadSingleImage } = require('../middlewares/uploadMiddleware');
-const { uploadFile } = require('../controller/file.controller');
+const uploadController = require('../controller/file.controller');
+const { upload } = require('../middlewares/uploadMiddleware');
+
 
 const router = express.Router();
 
-router.post('/', uploadSingleImage, uploadFile);
+router.post('/single', [upload.single('file')], uploadController.uploadSingle);
+router.get('/:name', uploadController.getFile)
 
 module.exports = router;

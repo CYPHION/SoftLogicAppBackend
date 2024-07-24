@@ -13,8 +13,10 @@ const { errorHandler } = require('./middlewares/error');
 const { authLimiter } = require('./middlewares/rateLimiter');
 const { Env } = require('./utils/constant');
 require('colors');
-const app = express();
 
+const app = express();
+app.set('trust proxy', true)
+app.use('/uploads', express.static('uploads'));
 
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({
@@ -46,7 +48,7 @@ const startServer = () => {
     })
 
 }
-app.use('/uploads', express.static('uploads'));
+
 // routes
 app.use('/', routes);
 

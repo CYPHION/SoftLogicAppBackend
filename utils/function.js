@@ -1,3 +1,6 @@
+const path = require("path");
+const { uploadDirectory } = require("./directory");
+
 exports.modifyingPayload = (obj) => {
 
     let newObj = {}
@@ -8,4 +11,9 @@ exports.modifyingPayload = (obj) => {
     })
 
     return newObj
+}
+
+exports.getImagePath = (image) => {
+    // Joins the upload directory path with the image file name to create a full path
+    return path.join(uploadDirectory, image)
 }
